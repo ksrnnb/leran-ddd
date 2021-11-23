@@ -1,0 +1,37 @@
+version: "3.8"
+services:
+  app:
+    container_name: learn-ddd-app
+    build: ./docker/golang
+    tty: true
+    volumes:
+      - "./app:/go/src"
+    ports:
+      - "3000:3000"
+
+  db:
+    container_name: learn-ddd-db
+    build: ./docker/db
+    restart: always
+    ports:
+      - 3306:3306
+    volumes:
+      - ./docker/db:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=ddd
+      - MYSQL_ROOT_PASSWORD=root
+      - TZ=Asia/Tokyo
+
+  # phpMyAdmin
+  pma:
+    container_name: learn-ddd-phpMyAdmin
+    image: phpmyadmin/phpmyadmin:latest
+    ports:
+      - 8001:80
+    depends_on:
+      - db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      PMA_HOST: db

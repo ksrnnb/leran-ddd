@@ -1,0 +1,5 @@
+.vscode
+app/tmp
+docker/db/*
+!docker/db/Dockerfile
+!docker/db/mysqld_charset.cnf
