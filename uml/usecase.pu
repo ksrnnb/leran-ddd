@@ -1,0 +1,28 @@
+@startuml club
+
+left to right direction
+actor "教員" as teacher
+actor "生徒" as student
+rectangle 部活 {
+    usecase "部活の情報を閲覧する" as UCT1
+    usecase "新しい部活を承認する" as UCT2
+    usecase "部活の情報を編集する" as UCT3
+    usecase "部活を廃部にする" as UCT4
+    usecase "入部を承認する" as UCT5
+    usecase "退部を承認する" as UCT6
+    usecase "部活の情報を閲覧する" as UCS1
+    usecase "新しい部活の作成を申請する" as UCS2
+    usecase "入部を申請する" as UCS3
+    usecase "退部を申請する" as UCS4
+}
+teacher --> UCT1
+teacher --> UCT2
+teacher --> UCT3
+teacher --> UCT4
+teacher --> UCT5
+teacher --> UCT6
+student --> UCS1
+student --> UCS2
+student --> UCS3
+student --> UCS4
+@enduml
