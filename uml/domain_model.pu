@@ -1,0 +1,39 @@
+@startuml domain_model
+left to right direction
+
+package "教員集約" as TeacherAggregate <<Rectangle>> {
+    object "教員" as teacher {
+        教員ID
+        名前
+    }
+}
+
+package "部活集約" as ClubAggregate <<Rectangle>> {
+    object "部活" as club {
+        部活ID
+        部活名
+        部活ステータス
+    }
+    object "部員" as clubStudent {
+        部活ID
+        生徒ID
+    }
+    object "顧問" as clubTeacher {
+        部活ID
+        教員ID
+    }
+}
+
+package "生徒集約" as StudentAggregate <<Rectangle>> {
+    object "生徒" as student {
+        生徒ID
+        名前
+    }
+}
+
+club "1"*--"0..n" clubStudent
+club "1"*--"0..1" clubTeacher
+clubTeacher "0..1"-->"1" teacher
+clubStudent "0..n"-->"1" student
+
+@enduml
