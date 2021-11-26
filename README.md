@@ -14,7 +14,7 @@ docker-compose up -d
 
 ```bash
 docker-compose exec app ash
-goose -dir migration mysql "root:root@tcp(db:3306)/ddd?parseTime=true"
+goose -dir migration mysql "root:root@tcp(db:3306)/ddd?parseTime=true" up
 ```
 
 ### マイグレーションファイルを作成
