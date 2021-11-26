@@ -19,13 +19,15 @@ goose -dir seeder mysql "root:root@tcp(db:3306)/ddd?parseTime=true" up
 ```
 
 downするときは、seederからdownする必要があるので注意
+
 ```bash
-goose -dir seeder mysql "root:root@tcp(db:3306)/ddd?parseTime=true" down
-goose -dir migration mysql "root:root@tcp(db:3306)/ddd?parseTime=true" down
+docker-compose exec app ash
+goose -dir seeder mysql "root:root@tcp(db:3306)/ddd?parseTime=true" down-to 1
+goose -dir migration mysql "root:root@tcp(db:3306)/ddd?parseTime=true" down-to 1
 ```
 
 ### マイグレーションファイルを作成
 ```bash
 docker-compose exec app ash
-goose -dir migration create create_***_table sql
+goose -s -dir migration create create_***_table sql
 ```
