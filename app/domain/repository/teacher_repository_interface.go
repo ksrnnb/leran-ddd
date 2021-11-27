@@ -1,7 +1,7 @@
 package repository
 
-import "github.com/ksrnnb/learn-ddd/domain/model"
+import "github.com/ksrnnb/learn-ddd/domain/entity"
 
 type TeacherRepositoryInterface interface {
-	GetTeachers() []*model.Teacher
+	GetTeachers() ([]*entity.Teacher, error)
 }
