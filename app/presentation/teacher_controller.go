@@ -21,8 +21,9 @@ func (c TeacherController) GetTeachers() *response.GetTeachersResponse {
 
 	if err != nil {
 		logger.Println(err.Error())
-		return response.NewGetTeachersResponse()
+		return response.NewGetTeachersResponse(err.Code(), err.Error())
 	}
+
 	res := response.NewGetTeachersResponse(http.StatusOK, out.Teachers)
 	return res
 }

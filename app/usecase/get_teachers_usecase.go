@@ -2,6 +2,7 @@ package usecase
 
 import (
 	"github.com/ksrnnb/learn-ddd/domain/repository"
+	"github.com/ksrnnb/learn-ddd/errs"
 	"github.com/ksrnnb/learn-ddd/usecase/output"
 )
 
@@ -13,7 +14,7 @@ func NewGetTeachersUsecase(repo repository.TeacherRepositoryInterface) *GetTeach
 	return &GetTeachersUsecase{repo: repo}
 }
 
-func (u GetTeachersUsecase) GetTeachers() (*output.GetTeachersOutput, error) {
+func (u GetTeachersUsecase) GetTeachers() (*output.GetTeachersOutput, errs.AppErrorInterface) {
 	domainTeachers, err := u.repo.GetTeachers()
 
 	if err != nil {
