@@ -8,6 +8,8 @@ services:
       - "./app:/go/src"
     ports:
       - "3000:3000"
+    depends_on:
+      - db
 
   db:
     container_name: learn-ddd-db
