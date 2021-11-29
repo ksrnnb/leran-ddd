@@ -1,28 +1,20 @@
 package route
 
 import (
-	"github.com/ksrnnb/learn-ddd/infrastructure"
-	"github.com/ksrnnb/learn-ddd/presentation"
-	"github.com/ksrnnb/learn-ddd/presentation/response"
-	"github.com/ksrnnb/learn-ddd/usecase"
+	"github.com/ksrnnb/learn-ddd/container"
+	"github.com/ksrnnb/learn-ddd/presentation/request"
 	"github.com/labstack/echo/v4"
 )
 
-var teacherController *presentation.TeacherController
-
-func init() {
-	// TODO: もう少し良い渡し方がないか検討
-	// di container...
-	u := usecase.NewGetTeachersUsecase(infrastructure.NewTeacherRepository())
-	teacherController = presentation.NewTeacherController(*u)
-}
+var c *container.Container
 
 func RegisterRoute(e *echo.Echo) {
-	e.GET("/teachers", echoWrapper(teacherController.GetTeachers()))
+	e.GET("/teachers", getTeachers)
 }
 
-func echoWrapper(res response.Response) func(c echo.Context) error {
-	return func(c echo.Context) error {
-		return c.JSON(res.Code(), res.Body())
-	}
+func getTeachers(context echo.Context) error {
+	c = container.NewContainer()
+	req := request.NewGetTeachersRequest()
+	res := c.TeacherController.GetTeachers(req)
+	return context.JSON(res.Code(), res.Body())
 }
