@@ -9,8 +9,10 @@ import (
 
 type Container struct {
 	TeacherController *presentation.TeacherController
+	StudentController *presentation.StudentController
 }
 
+// TODO: もう少しいい方法を調べる
 func NewContainer() *Container {
 	db, err := db.NewDBClient()
 	if err != nil {
@@ -21,6 +23,9 @@ func NewContainer() *Container {
 
 	u := usecase.NewGetTeachersUsecase(infrastructure.NewTeacherRepository(db))
 	container.TeacherController = presentation.NewTeacherController(*u)
+
+	su := usecase.NewGetStudentsUsecase(infrastructure.NewStudentRepository(db))
+	container.StudentController = presentation.NewStudentController(*su)
 
 	return container
 }
