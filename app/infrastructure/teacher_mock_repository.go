@@ -2,6 +2,7 @@ package infrastructure
 
 import (
 	"github.com/ksrnnb/learn-ddd/domain/entity"
+	"github.com/ksrnnb/learn-ddd/domain/repository"
 	"github.com/ksrnnb/learn-ddd/errs"
 )
 
@@ -9,7 +10,7 @@ type TeacherMockRepository struct{}
 
 var teacherMock []*entity.Teacher
 
-func NewTeacherMockRepository(id uint, name string) *TeacherRepository {
+func NewTeacherMockRepository(id uint, name string) repository.TeacherRepositoryInterface {
 	t, err := entity.NewTeacher(id, name)
 
 	if err != nil {
@@ -17,7 +18,7 @@ func NewTeacherMockRepository(id uint, name string) *TeacherRepository {
 	}
 
 	teacherMock = append(teacherMock, t)
-	return &TeacherRepository{}
+	return &TeacherMockRepository{}
 }
 
 func (r TeacherMockRepository) GetTeachers() ([]*entity.Teacher, errs.AppErrorInterface) {
