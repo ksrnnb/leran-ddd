@@ -10,11 +10,19 @@ var c *container.Container
 
 func RegisterRoute(e *echo.Echo) {
 	e.GET("/teachers", getTeachers)
+	e.GET("/students", getStudents)
 }
 
 func getTeachers(context echo.Context) error {
 	c = container.NewContainer()
 	req := request.NewGetTeachersRequest()
 	res := c.TeacherController.GetTeachers(req)
+	return context.JSON(res.Code(), res.Body())
+}
+
+func getStudents(context echo.Context) error {
+	c = container.NewContainer()
+	req := request.NewGetStudentsRequest()
+	res := c.StudentController.GetStudents(req)
 	return context.JSON(res.Code(), res.Body())
 }

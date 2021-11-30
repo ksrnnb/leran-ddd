@@ -1,27 +1,11 @@
 package usecase
 
 import (
-	"os"
 	"testing"
-
-	"github.com/ksrnnb/learn-ddd/infrastructure"
 )
 
-var getUserUsecase *GetTeachersUsecase
-
-func TestMain(m *testing.M) {
-	setUp()
-	v := m.Run()
-	os.Exit(v)
-}
-
-func setUp() {
-	mockRepo := infrastructure.NewTeacherMockRepository(1, "テスト")
-	getUserUsecase = NewGetTeachersUsecase(mockRepo)
-}
-
 func TestGetTeachers(t *testing.T) {
-	out, err := getUserUsecase.GetTeachers()
+	out, err := getTeachersUsecase.GetTeachers()
 
 	if err != nil {
 		t.Error("error while testing get teachers length")
