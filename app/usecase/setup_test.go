@@ -9,6 +9,7 @@ import (
 
 var getTeachersUsecase *GetTeachersUsecase
 var getStudentsUsecase *GetStudentsUsecase
+var getClubsUsecase *GetClubsUsecase
 
 func TestMain(m *testing.M) {
 	setUp()
@@ -22,4 +23,7 @@ func setUp() {
 
 	mockStudentRepo := infrastructure.NewStudentMockRepository(1, "テスト")
 	getStudentsUsecase = NewGetStudentsUsecase(mockStudentRepo)
+
+	mockClubRepo := infrastructure.NewClubMockRepository(1, "テスト", 0)
+	getClubsUsecase = NewGetClubsUsecase(mockClubRepo)
 }

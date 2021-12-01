@@ -10,6 +10,7 @@ import (
 type Container struct {
 	TeacherController *presentation.TeacherController
 	StudentController *presentation.StudentController
+	ClubController    *presentation.ClubController
 }
 
 // TODO: もう少しいい方法を調べる
@@ -26,6 +27,9 @@ func NewContainer() *Container {
 
 	su := usecase.NewGetStudentsUsecase(infrastructure.NewStudentRepository(db))
 	container.StudentController = presentation.NewStudentController(*su)
+
+	cu := usecase.NewGetClubsUsecase(infrastructure.NewClubRepository(db))
+	container.ClubController = presentation.NewClubController(*cu)
 
 	return container
 }

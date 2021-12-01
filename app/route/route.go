@@ -11,6 +11,7 @@ var c *container.Container
 func RegisterRoute(e *echo.Echo) {
 	e.GET("/teachers", getTeachers)
 	e.GET("/students", getStudents)
+	e.GET("/clubs", getClubs)
 }
 
 func getTeachers(context echo.Context) error {
@@ -24,5 +25,12 @@ func getStudents(context echo.Context) error {
 	c = container.NewContainer()
 	req := request.NewGetStudentsRequest()
 	res := c.StudentController.GetStudents(req)
+	return context.JSON(res.Code(), res.Body())
+}
+
+func getClubs(context echo.Context) error {
+	c = container.NewContainer()
+	req := request.NewGetClubsRequest()
+	res := c.ClubController.GetClubs(req)
 	return context.JSON(res.Code(), res.Body())
 }
