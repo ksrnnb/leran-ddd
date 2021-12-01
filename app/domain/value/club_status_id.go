@@ -18,7 +18,7 @@ func NewClubStatus(id int) (*ClubStatus, error) {
 	}
 
 	if id == ApprovedStatusId {
-		return &ClubStatus{id, "承認済み"}, nil
+		return &ClubStatus{id, "承認済"}, nil
 	}
 
 	return nil, errors.New("status id is invalid")
