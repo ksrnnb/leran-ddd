@@ -7,4 +7,5 @@ import (
 
 type ClubRepositoryInterface interface {
 	GetClubs() ([]*entity.Club, errs.AppErrorInterface)
+	CreateClub(*entity.Club) errs.AppErrorInterface
 }

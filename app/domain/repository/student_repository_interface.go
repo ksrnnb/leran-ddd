@@ -7,4 +7,5 @@ import (
 
 type StudentRepositoryInterface interface {
 	GetStudents() ([]*entity.Student, errs.AppErrorInterface)
+	Find(studentId int) (*entity.Student, errs.AppErrorInterface)
 }
