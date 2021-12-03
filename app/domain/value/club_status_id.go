@@ -7,6 +7,11 @@ const (
 	ApprovedStatusId
 )
 
+const (
+	UnapprovedStatusName = "未承認"
+	ApprovedStatusName   = "承認済"
+)
+
 type ClubStatus struct {
 	Id   int
 	Name string
@@ -14,12 +19,20 @@ type ClubStatus struct {
 
 func NewClubStatus(id int) (*ClubStatus, error) {
 	if id == UnapprovedStatusId {
-		return &ClubStatus{id, "未承認"}, nil
+		return &ClubStatus{id, UnapprovedStatusName}, nil
 	}
 
 	if id == ApprovedStatusId {
-		return &ClubStatus{id, "承認済"}, nil
+		return &ClubStatus{id, ApprovedStatusName}, nil
 	}
 
 	return nil, errors.New("status id is invalid")
+}
+
+func NewApprovedStatus() *ClubStatus {
+	return &ClubStatus{ApprovedStatusId, ApprovedStatusName}
+}
+
+func NewUnapprovedStatus() *ClubStatus {
+	return &ClubStatus{ApprovedStatusId, UnapprovedStatusName}
 }
