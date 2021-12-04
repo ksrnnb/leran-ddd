@@ -24,3 +24,12 @@ func NewClubMockRepository(id uint, name string, statusId int) repository.ClubRe
 func (r ClubMockRepository) GetClubs() ([]*entity.Club, errs.AppErrorInterface) {
 	return clubMock, nil
 }
+
+func (r ClubMockRepository) CreateClub(club *entity.Club) (*entity.Club, errs.AppErrorInterface) {
+	clubMock = append(clubMock, club)
+	return &entity.Club{}, nil
+}
+
+func (r ClubMockRepository) FindByName(name string) (*entity.Club, errs.AppErrorInterface) {
+	return &entity.Club{}, nil
+}

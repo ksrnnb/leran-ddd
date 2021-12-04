@@ -24,3 +24,7 @@ func NewTeacherMockRepository(id uint, name string) repository.TeacherRepository
 func (r TeacherMockRepository) GetTeachers() ([]*entity.Teacher, errs.AppErrorInterface) {
 	return teacherMock, nil
 }
+
+func (r TeacherMockRepository) Find(teacherId int) (*entity.Teacher, errs.AppErrorInterface) {
+	return &entity.Teacher{}, nil
+}

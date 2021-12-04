@@ -46,6 +46,20 @@ func (r TeacherRepository) GetTeachers() ([]*entity.Teacher, errs.AppErrorInterf
 	return teachers, nil
 }
 
+func (r TeacherRepository) Find(teacherId int) (*entity.Teacher, errs.AppErrorInterface) {
+	var id uint
+	var name string
+	r.db.QueryRow("SELECT id, name FROM teachers where id = ?", teacherId).Scan(&id, &name)
+
+	teacher, err := entity.NewTeacher(id, name)
+
+	if err != nil {
+		return nil, errs.NewAppError(http.StatusNotFound, err.Error())
+	}
+
+	return teacher, nil
+}
+
 func (r TeacherRepository) scanTeacher(rows *sql.Rows) (*entity.Teacher, errs.AppErrorInterface) {
 	var id uint
 	var name string
