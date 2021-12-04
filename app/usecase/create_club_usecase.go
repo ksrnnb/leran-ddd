@@ -16,8 +16,8 @@ type CreateClubUsecase struct {
 	factory factory.ClubFactory
 }
 
-func NewCreateClubUsecase(repo repository.ClubRepositoryInterface) *CreateClubUsecase {
-	return &CreateClubUsecase{repo: repo}
+func NewCreateClubUsecase(repo repository.ClubRepositoryInterface, f factory.ClubFactory) *CreateClubUsecase {
+	return &CreateClubUsecase{repo: repo, factory: f}
 }
 
 func (u CreateClubUsecase) CreateClub(in *input.CreateClubInput) (*output.CreateClubOutput, errs.AppErrorInterface) {
@@ -39,7 +39,7 @@ func (u CreateClubUsecase) CreateClub(in *input.CreateClubInput) (*output.Create
 		return nil, errs.NewAppError(http.StatusUnprocessableEntity, "usecase: club name is duplicated")
 	}
 
-	appErr = u.repo.CreateClub(club)
+	club, appErr = u.repo.CreateClub(club)
 
 	if appErr != nil {
 		return nil, appErr
