@@ -7,6 +7,6 @@ import (
 
 type ClubRepositoryInterface interface {
 	GetClubs() ([]*entity.Club, errs.AppErrorInterface)
-	CreateClub(*entity.Club) errs.AppErrorInterface
+	CreateClub(*entity.Club) (*entity.Club, errs.AppErrorInterface)
 	FindByName(name string) (*entity.Club, errs.AppErrorInterface)
 }

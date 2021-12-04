@@ -20,5 +20,5 @@ func (s ClubService) IsDuplicatedName(club *entity.Club) (bool, error) {
 		return false, err
 	}
 
-	return c == nil, nil
+	return c.Id.Value != 0, nil
 }

@@ -11,12 +11,20 @@ import (
 
 type ClubFactory struct {
 	clubRepo    repository.ClubRepositoryInterface
-	studnetRepo repository.StudentRepositoryInterface
+	studentRepo repository.StudentRepositoryInterface
 	teacherRepo repository.TeacherRepositoryInterface
 }
 
-func NewClubFactory(repo repository.ClubRepositoryInterface) *ClubFactory {
-	return &ClubFactory{clubRepo: repo}
+func NewClubFactory(
+	clubRepo repository.ClubRepositoryInterface,
+	studentRepo repository.StudentRepositoryInterface,
+	teacherRepo repository.TeacherRepositoryInterface,
+) *ClubFactory {
+	return &ClubFactory{
+		clubRepo:    clubRepo,
+		studentRepo: studentRepo,
+		teacherRepo: teacherRepo,
+	}
 }
 
 func (f ClubFactory) NewClubWithStudentsAndTeacher(name string, studentIds []int, teacherId int) (*entity.Club, errs.AppErrorInterface) {
@@ -61,7 +69,7 @@ func (f ClubFactory) newStudents(studentIds []int) ([]*entity.Student, errs.AppE
 
 	// getStudentsでとってきて、そこでループ回してリクエストを減らす。
 	for _, studentId := range studentIds {
-		student, err := f.studnetRepo.Find(studentId)
+		student, err := f.studentRepo.Find(studentId)
 
 		if err != nil {
 			return nil, err
