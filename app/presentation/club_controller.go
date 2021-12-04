@@ -19,7 +19,7 @@ func NewClubController(
 	getClubsUsercase usecase.GetClubsUsecase,
 	createClubUsecase usecase.CreateClubUsecase,
 ) *ClubController {
-	return &ClubController{getClubsUsecase: getClubsUsercase}
+	return &ClubController{getClubsUsecase: getClubsUsercase, createClubUsecase: createClubUsecase}
 }
 
 func (c ClubController) GetClubs(req *request.GetClubsRequest) response.Response {
