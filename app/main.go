@@ -5,6 +5,7 @@ import (
 
 	"github.com/joho/godotenv"
 	"github.com/ksrnnb/learn-ddd/route"
+	"github.com/ksrnnb/learn-ddd/validator"
 	"github.com/labstack/echo/v4"
 )
 
@@ -16,6 +17,7 @@ func main() {
 	}
 
 	e := echo.New()
+	e.Validator = validator.NewValidator()
 
 	route.RegisterRoute(e)
 
