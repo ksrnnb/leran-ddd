@@ -31,3 +31,8 @@ goose -dir migration mysql "root:root@tcp(db:3306)/ddd?parseTime=true" down-to 1
 docker-compose exec app ash
 goose -s -dir migration create create_***_table sql
 ```
+
+# 課題
+- DIコンテナ
+- factoryやdomain serviceのinterface
+- controllerをechoに依存させないように保ったまま、routeをもう少し綺麗に書けないか？
