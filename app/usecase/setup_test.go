@@ -4,12 +4,14 @@ import (
 	"os"
 	"testing"
 
+	"github.com/ksrnnb/learn-ddd/domain/factory"
 	"github.com/ksrnnb/learn-ddd/infrastructure"
 )
 
 var getTeachersUsecase *GetTeachersUsecase
 var getStudentsUsecase *GetStudentsUsecase
 var getClubsUsecase *GetClubsUsecase
+var createClubUsecase *CreateClubUsecase
 
 func TestMain(m *testing.M) {
 	setUp()
@@ -18,12 +20,15 @@ func TestMain(m *testing.M) {
 }
 
 func setUp() {
-	mockTeacherRepo := infrastructure.NewTeacherMockRepository(1, "テスト")
+	mockTeacherRepo := infrastructure.NewTeacherMockRepository()
 	getTeachersUsecase = NewGetTeachersUsecase(mockTeacherRepo)
 
-	mockStudentRepo := infrastructure.NewStudentMockRepository(1, "テスト")
+	mockStudentRepo := infrastructure.NewStudentMockRepository()
 	getStudentsUsecase = NewGetStudentsUsecase(mockStudentRepo)
 
-	mockClubRepo := infrastructure.NewClubMockRepository(1, "テスト", 0)
+	mockClubRepo := infrastructure.NewClubMockRepository()
 	getClubsUsecase = NewGetClubsUsecase(mockClubRepo)
+
+	mockFactory := factory.NewClubFactory(mockClubRepo, mockStudentRepo, mockTeacherRepo)
+	createClubUsecase = NewCreateClubUsecase(mockClubRepo, *mockFactory)
 }

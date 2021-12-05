@@ -7,4 +7,5 @@ import (
 
 type TeacherRepositoryInterface interface {
 	GetTeachers() ([]*entity.Teacher, errs.AppErrorInterface)
+	Find(teacherId int) (*entity.Teacher, errs.AppErrorInterface)
 }

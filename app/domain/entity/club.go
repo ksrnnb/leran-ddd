@@ -4,10 +4,14 @@ import (
 	"github.com/ksrnnb/learn-ddd/domain/value"
 )
 
+const StudentsLowerLimit = 5
+
 type Club struct {
-	Id     value.Id
-	Name   value.ClubName
-	Status value.ClubStatus
+	Id       value.Id
+	Name     value.ClubName
+	Status   value.ClubStatus
+	Students []*Student
+	Teacher  *Teacher
 }
 
 func NewClub(id uint, name string, statusId int) (*Club, error) {
@@ -29,5 +33,9 @@ func NewClub(id uint, name string, statusId int) (*Club, error) {
 		return nil, err
 	}
 
-	return &Club{*idObject, *nameObject, *statusObject}, nil
+	return &Club{
+		Id:     *idObject,
+		Name:   *nameObject,
+		Status: *statusObject,
+	}, nil
 }
