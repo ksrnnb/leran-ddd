@@ -1,30 +1,42 @@
 package infrastructure
 
 import (
+	"strconv"
+
 	"github.com/ksrnnb/learn-ddd/domain/entity"
 	"github.com/ksrnnb/learn-ddd/domain/repository"
 	"github.com/ksrnnb/learn-ddd/errs"
 )
 
-type TeacherMockRepository struct{}
+type TeacherMockRepository struct {
+	teachers []*entity.Teacher
+}
 
-var teacherMock []*entity.Teacher
+func NewTeacherMockRepository() repository.TeacherRepositoryInterface {
+	var teachers []*entity.Teacher
+	for i := 1; i < 3; i++ {
+		teacher, err := entity.NewTeacher(uint(i), "mockTeacher"+strconv.Itoa(i))
 
-func NewTeacherMockRepository(id uint, name string) repository.TeacherRepositoryInterface {
-	t, err := entity.NewTeacher(id, name)
+		if err != nil {
+			return nil
+		}
 
-	if err != nil {
-		return nil
+		teachers = append(teachers, teacher)
 	}
 
-	teacherMock = append(teacherMock, t)
-	return &TeacherMockRepository{}
+	return &TeacherMockRepository{teachers}
 }
 
 func (r TeacherMockRepository) GetTeachers() ([]*entity.Teacher, errs.AppErrorInterface) {
-	return teacherMock, nil
+	return r.teachers, nil
 }
 
 func (r TeacherMockRepository) Find(teacherId int) (*entity.Teacher, errs.AppErrorInterface) {
+	for _, t := range r.teachers {
+		if t.Id.Value == uint(teacherId) {
+			return t, nil
+		}
+	}
+
 	return &entity.Teacher{}, nil
 }

@@ -75,6 +75,11 @@ func (f ClubFactory) newStudents(studentIds []int) ([]*entity.Student, errs.AppE
 			return nil, err
 		}
 
+		// みつからない場合
+		if student.Id.Value == 0 {
+			return nil, errs.NewAppError(http.StatusUnprocessableEntity, "student ids are invalid")
+		}
+
 		students = append(students, student)
 	}
 
@@ -82,5 +87,15 @@ func (f ClubFactory) newStudents(studentIds []int) ([]*entity.Student, errs.AppE
 }
 
 func (f ClubFactory) newTeacher(teacherId int) (*entity.Teacher, errs.AppErrorInterface) {
-	return f.teacherRepo.Find(teacherId)
+	teacher, err := f.teacherRepo.Find(teacherId)
+
+	if err != nil {
+		return nil, err
+	}
+
+	if teacher.Id.Value == 0 {
+		return nil, errs.NewAppError(http.StatusUnprocessableEntity, "teacher is invalid")
+	}
+
+	return teacher, nil
 }
